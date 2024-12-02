@@ -28,17 +28,7 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
-  List <Icon> scoreKeeper = [
-
-    // Icon(
-    //   Icons.close,
-    //   color: Colors.red,
-    // ),
-  ];
-
-
-
-  int questionNumber = 0;
+  List <Icon> scoreKeeper = [];
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +42,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                quizBrain.questionBank[questionNumber].questionText,
+                quizBrain.getQuestionText(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -77,7 +67,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
 
-                bool correctAnswer = quizBrain.questionBank[questionNumber].questionAnswer;
+                bool correctAnswer = quizBrain.getQuestionAnswer();
 
                 if(correctAnswer == true){
                   scoreKeeper.add(
@@ -85,22 +75,16 @@ class _QuizPageState extends State<QuizPage> {
                            Icons.check,
                            color: Colors.green,
                          ));
-
+                }else{
+                  scoreKeeper.add(
+                      Icon(
+                          Icons.fiber_manual_record_outlined,
+                          color: Colors.white));
                 }
 
                 setState((){
-                  if (questionNumber < quizBrain.questionBank.length - 1){
-                  questionNumber++;
-                  }
+                  quizBrain.nextQuestion();
                 });
-               // setState(() {
-               //    scoreKeeper.add(
-               //      Icon(
-               //        Icons.check,
-               //        color: Colors.green,
-               //      )
-               //    );}
-               //  );
               },
             ),
           ),
@@ -119,32 +103,24 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-    bool correctAnswer = quizBrain.questionBank[questionNumber].questionAnswer;
-
+                bool correctAnswer = quizBrain.getQuestionAnswer();
 
               if(correctAnswer ==false) {
                 scoreKeeper.add(
                     Icon(
                       Icons.close,
                       color: Colors.red,
-                    )
-                );
+                    ));
+              }else{
+                scoreKeeper.add(
+                    Icon(
+                        Icons.fiber_manual_record_outlined,
+                        color: Colors.white));
               }
                 setState((){
-                  if (questionNumber < quizBrain.questionBank.length - 1){
-                    questionNumber++;
-                  }
+                  quizBrain.nextQuestion();
                 });
-    // setState(() {
-    //   scoreKeeper.add(
-    //       Icon(
-    //         Icons.close,
-    //         color: Colors.red,
-    //       )
-    //   );}
-    }
-                ),
-
+              }),
             ),
           ),
 

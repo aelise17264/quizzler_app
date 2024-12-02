@@ -1,7 +1,10 @@
 import 'questions.dart';
 
 class QuizBrain{
-  List<Question> questionBank = [
+
+  int _questionNumber = 0;
+
+  List<Question> _questionBank = [
     Question('The tongue is the only part of the human body with taste buds.', false),
     Question('In the US, pepperoni is the most widely used pizza topping.', true),
     Question('The Vince Lombardi trophy was created by renowned jeweler Tiffany & Co.', true),
@@ -27,4 +30,21 @@ class QuizBrain{
         'In West Virginia, USA, if you accidentally hit an animal with your car, you are free to take it home to eat.',
         true),
   ];
+
+  void nextQuestion(){
+    if(_questionNumber < _questionBank.length - 1){
+      _questionNumber++;
+    }
+  }
+
+  String getQuestionText(){
+    return _questionBank[_questionNumber].questionText;
+  }
+
+  bool getQuestionAnswer(){
+    return _questionBank[_questionNumber].questionAnswer;
+  }
+
+
 }
+
